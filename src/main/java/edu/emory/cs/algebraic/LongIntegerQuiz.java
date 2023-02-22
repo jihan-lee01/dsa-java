@@ -9,6 +9,11 @@ public class LongIntegerQuiz extends LongInteger {
 
     @Override
     protected void addDifferentSign(LongInteger n) {
+        /**
+         * TODO: improve the efficiency of the code
+         * compareAbs < 0 first and exchange the sign
+         */
+
         int m = Math.max(digits.length, n.digits.length);
         byte[] result = new byte[m];
 

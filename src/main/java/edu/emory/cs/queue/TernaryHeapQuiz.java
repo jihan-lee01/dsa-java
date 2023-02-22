@@ -6,7 +6,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class TernaryHeapQuiz<T extends Comparable<T>> extends AbstractPriorityQueue<T> {
+    //TODO: Change the code to n-ary heap
     private final List<T> keys;
+
+    // private final int N
 
     public TernaryHeapQuiz() {
         this(Comparator.naturalOrder());
