@@ -1,4 +1,7 @@
-package edu.emory.cs.tree;
+package edu.emory.cs.tree.balanced;
+
+import edu.emory.cs.tree.AbstractBinaryNode;
+import edu.emory.cs.tree.AbstractBinarySearchTree;
 
 public abstract class AbstractBalancedBinarySearchTree<T extends Comparable<T>, N extends AbstractBinaryNode<T, N>> extends AbstractBinarySearchTree<T, N> {
     /**
@@ -32,4 +35,29 @@ public abstract class AbstractBalancedBinarySearchTree<T extends Comparable<T>, 
 
         child.setRightChild(node);
     }
+
+    @Override
+    public N add(T key) {
+        N node = super.add(key);
+        balance(node);
+        return node;
+    }
+
+    @Override
+    public N remove(T key) {
+        N node = findNode(root, key);
+
+        if (node != null) {
+            N lowest = node.hasBothChildren() ? removeHibbard(node) : removeSelf(node);
+            if (lowest != null && lowest != node) balance(lowest);
+        }
+
+        return node;
+    }
+
+    /**
+     * Preserves the balance of the specific node and its ancestors.
+     * @param node the node to be balanced.
+     */
+    protected abstract void balance(N node);
 }
