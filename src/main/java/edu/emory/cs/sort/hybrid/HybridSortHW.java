@@ -69,24 +69,24 @@ public class HybridSortHW<T extends Comparable<T>> implements HybridSort<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private T[] merge(T[] sortedArr, T[] input) {
-        T[] mergedArr = (T[]) Array.newInstance(sortedArr[0].getClass(), sortedArr.length + input.length);
+    private T[] merge(T[] fstinput, T[] sndinput) {
+        T[] mergedArr = (T[]) Array.newInstance(fstinput[0].getClass(), fstinput.length + sndinput.length);
 
         int i = 0, j = 0, k = 0;
-        while (i < sortedArr.length && j < input.length) {
-            if (sortedArr[i].compareTo(input[j]) <= 0) {
-                mergedArr[k++] = sortedArr[i++];
+        while (i < fstinput.length && j < sndinput.length) {
+            if (fstinput[i].compareTo(sndinput[j]) <= 0) {
+                mergedArr[k++] = fstinput[i++];
             } else {
-                mergedArr[k++] = input[j++];
+                mergedArr[k++] = sndinput[j++];
             }
         }
 
-        while (i < sortedArr.length) {
-            mergedArr[k++] = sortedArr[i++];
+        while (i < fstinput.length) {
+            mergedArr[k++] = fstinput[i++];
         }
 
-        while (j < input.length) {
-            mergedArr[k++] = input[j++];
+        while (j < sndinput.length) {
+            mergedArr[k++] = sndinput[j++];
         }
 
         return mergedArr;
