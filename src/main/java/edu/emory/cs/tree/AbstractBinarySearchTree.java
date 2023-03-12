@@ -125,4 +125,23 @@ public abstract class AbstractBinarySearchTree<T extends Comparable<T>, N extend
         replaceChild(node, min);
         return parent;
     }
+
+    /** @return {@code true} if the specific key exists; otherwise, {@code false}. */
+    public boolean contains(T key) {
+        return get(key) != null;
+    }
+
+    /** @return the minimum key in this tree if exists; otherwise, {@code null}. */
+    public T min() {
+        return (root != null) ? findMinNode(root).getKey() : null;
+    }
+
+    /** @return the maximum key in this tree if exists; otherwise, {@code null}. */
+    public T max() {
+        return (root != null) ? findMaxNode(root).getKey() : null;
+    }
+
+    public String toString() {
+        return (root != null) ? root.toString() : "null";
+    }
 }

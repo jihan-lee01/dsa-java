@@ -25,7 +25,7 @@ public abstract class AbstractBinaryNode<T extends Comparable<T>, N extends Abst
         return left_child == node;
     }
 
-    /** @return true if the specific node is the left child of this node. */
+    /** @return true if the specific node is the right child of this node. */
     public boolean isRightChild(N node) {
         return right_child == node;
     }
