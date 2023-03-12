@@ -26,6 +26,6 @@ public class BalancedBinarySearchTreeQuiz<T extends Comparable<T>> extends Abstr
             }
             rotateLeft(grandParent);
             rotateRight(grandParent);
-            }
+        }
     }
 }
