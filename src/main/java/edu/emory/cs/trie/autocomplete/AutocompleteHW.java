@@ -11,28 +11,27 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
 
     @Override
     public List<String> getCandidates(String prefix) {
-        prefix = prefix.replaceAll("\\s", "");
+        prefix = prefix.trim();
         List<String> result = new ArrayList<>();
 
-        TrieNode<List<String>> node = getRoot();
+        TrieNode<List<String>> node = find(prefix);
 
-        for (char ch : prefix.toCharArray()) {
-            if (node.getChildrenMap().containsKey(ch))
-                node = node.getChildrenMap().get(ch);
-            else return result;
+        if (node == null) {
+            put(prefix, new ArrayList<>());
+            node.setEndState(false);
         }
 
         if (node.getValue() != null)
-            for (int i = node.getValue().size() - 1; result.size() < getMax() && i >= 0 ; i--)
+            for (int i = node.getValue().size() - 1; result.size() < getMax() && i >= 0 ; i--) {
+                if (result.size() == getMax()) return result;
                 result.add(node.getValue().get(i));
+            }
 
         Deque<TrieNode<List<String>>> queue = new ArrayDeque<>();
         queue.addLast(node);
 
-
         while (!queue.isEmpty()) {
             TrieNode<List<String>> current = queue.removeFirst();
-            if (result.size() == getMax()) break;
             if (current.isEndState()) {
                 String word = "";
                 TrieNode<List<String>> temp = current;
@@ -40,8 +39,10 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
                     word = temp.getKey() + word;
                     temp = temp.getParent();
                 }
-                if (node.getValue() == null || !node.getValue().contains(word))
+                if (node.getValue() == null || !node.getValue().contains(word)) {
                     result.add(word);
+                    if (result.size() == getMax()) break;
+                }
             }
 
             List<Character> children = new ArrayList<>(current.getChildrenMap().keySet());
@@ -57,13 +58,18 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
 
     @Override
     public void pickCandidate(String prefix, String candidate) {
-        prefix = prefix.replaceAll("\\s", "");
-        TrieNode<List<String>> node = getRoot();
+        prefix = prefix.trim();
+        TrieNode<List<String>> node = find(prefix);
 
-        for (char ch : prefix.toCharArray()) {
-            if (node.getChildrenMap().containsKey(ch))
-                node = node.getChildrenMap().get(ch);
-            else break;
+        if (node == null) {
+            put(prefix, new ArrayList<>());
+            node.setEndState(false);
+        }
+
+        TrieNode<List<String>> candidateNode = find(candidate);
+
+        if (candidateNode == null) {
+            put(candidate, new ArrayList<>());
         }
 
         List<String> candidates = node.getValue();
