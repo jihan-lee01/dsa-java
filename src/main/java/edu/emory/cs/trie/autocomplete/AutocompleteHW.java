@@ -17,7 +17,7 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
         TrieNode<List<String>> node = find(prefix);
 
         if (node == null) {
-            put(prefix, new ArrayList<>());
+            put(prefix, null);
             node.setEndState(false);
         }
 
@@ -59,17 +59,17 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
     @Override
     public void pickCandidate(String prefix, String candidate) {
         prefix = prefix.trim();
-        TrieNode<List<String>> node = find(prefix);
-
-        if (node == null) {
-            put(prefix, new ArrayList<>());
-            node.setEndState(false);
-        }
+        candidate = candidate.trim();
 
         TrieNode<List<String>> candidateNode = find(candidate);
 
-        if (candidateNode == null) {
-            put(candidate, new ArrayList<>());
+        if (candidateNode == null) put(candidate, null);
+
+        TrieNode<List<String>> node = find(prefix);
+
+        if (node == null) {
+            put(prefix, null);
+            node.setEndState(false);
         }
 
         List<String> candidates = node.getValue();
