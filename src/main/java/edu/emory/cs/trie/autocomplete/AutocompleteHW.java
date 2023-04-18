@@ -64,6 +64,7 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
         TrieNode<List<String>> node = find(prefix);
         if (node == null) {
             put(prefix, null);
+            node = find(prefix);
             node.setEndState(false);
         }
 
