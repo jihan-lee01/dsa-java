@@ -59,6 +59,7 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
 
         TrieNode<List<String>> candidateNode = find(candidate);
         if (candidateNode == null) put(candidate, null);
+        else if (!candidateNode.isEndState()) candidateNode.setEndState(true);
 
         TrieNode<List<String>> node = find(prefix);
         if (node == null) {
