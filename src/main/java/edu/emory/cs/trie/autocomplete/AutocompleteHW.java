@@ -15,11 +15,7 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
         List<String> result = new ArrayList<>();
 
         TrieNode<List<String>> node = find(prefix);
-
-        if (node == null) {
-            put(prefix, null);
-            node.setEndState(false);
-        }
+        if (node == null) return result;
 
         if (node.getValue() != null)
             for (int i = node.getValue().size() - 1; result.size() < getMax() && i >= 0 ; i--) {
@@ -62,11 +58,9 @@ public class AutocompleteHW extends Autocomplete<List<String>> {
         candidate = candidate.trim();
 
         TrieNode<List<String>> candidateNode = find(candidate);
-
         if (candidateNode == null) put(candidate, null);
 
         TrieNode<List<String>> node = find(prefix);
-
         if (node == null) {
             put(prefix, null);
             node.setEndState(false);
