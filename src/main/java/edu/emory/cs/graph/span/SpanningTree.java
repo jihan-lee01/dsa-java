@@ -32,4 +32,16 @@ public class SpanningTree implements Comparable<SpanningTree> {
         else if (diff < 0) return -1;
         else return 0;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder build = new StringBuilder();
+
+        for (Edge edge : edges)
+            build.append(String.format("\n%d <- %d : %f", edge.getTarget(), edge.getSource(), edge.getWeight()));
+
+        return build.length() > 0 ? build.substring(1) : "";
+    }
+
+
 }

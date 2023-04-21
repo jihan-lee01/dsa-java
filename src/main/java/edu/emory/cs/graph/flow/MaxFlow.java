@@ -23,7 +23,7 @@ public class MaxFlow {
             flow_map.put(edge, 0d);
     }
 
-    public double getMaxflow() {
+    public double getMaxFlow() {
         return maxflow;
     }
 
