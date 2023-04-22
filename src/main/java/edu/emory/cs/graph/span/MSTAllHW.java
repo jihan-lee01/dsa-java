@@ -8,8 +8,8 @@ import java.util.*;
 public class MSTAllHW implements MSTAll {
     @Override
     public List<SpanningTree> getMinimumSpanningTrees(Graph graph) {
-        MSTKruskal kruskal = new MSTKruskal();
-        double minWeight = kruskal.getMinimumSpanningTree(graph).getTotalWeight();
+        MSTPrim prim = new MSTPrim();
+        double minWeight = prim.getMinimumSpanningTree(graph).getTotalWeight();
 
         PriorityQueue<Edge> queue = new PriorityQueue<>();
         SpanningTree tree = new SpanningTree();
